@@ -15,6 +15,10 @@
 
   <div id="container">
     <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+      <div  (click)="takePhoto()">
+          <ion-icon style="height: 50px; width: 50px;" name="camera"></ion-icon>
+      </div>
+
+      <p [innerHtml]="log"></p>
   </div>
 </ion-content>
