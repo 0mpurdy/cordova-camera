@@ -15,14 +15,14 @@
 
   <div id="container">
     <strong>Ready to create an app?</strong>
-      <div  (click)="takePhoto()">
+      <div (click)="takePhoto()">
           <ion-icon style="height: 50px; width: 50px;" name="camera"></ion-icon>
       </div>
 
       <p [innerHtml]="log"></p>
 
       <img *ngIf="photo.exists"
-          [src]="photo.sourceUrl"
-          >
+        style="height: 300px; width: 300px;"
+        [src]="photo.sourceUrl" >
   </div>
 </ion-content>
