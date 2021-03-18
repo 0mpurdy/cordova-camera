@@ -10,6 +10,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 export class HomePage {
 
   public log: string = "";
+  public photo: Photo = new Photo();
 
   constructor(private camera: Camera) {}
 
@@ -27,6 +28,8 @@ export class HomePage {
       // imageData is either a base64 encoded string or a file URI
       // If it's base64 (DATA_URL):
       this.log += `${new Date().toISOString()} Image data ${imageData}<br/>`;
+      this.photo.exists = true;
+      this.photo.sourceUrl = imageData;
     }, (err) => {
       this.log += `${new Date().toISOString()} Image error ${err}<br/>`;
     });
@@ -36,5 +39,9 @@ export class HomePage {
       .slice(Math.max(logArray.length - 4, 0))
       .join("<br/>");
   }
+}
 
+export class Photo {
+  public exists: boolean = false;
+  public sourceUrl: string = "";
 }

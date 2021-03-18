@@ -20,5 +20,9 @@
       </div>
 
       <p [innerHtml]="log"></p>
+
+      <img *ngIf="photo.exists"
+          [src]="photo.sourceUrl"
+          >
   </div>
 </ion-content>
