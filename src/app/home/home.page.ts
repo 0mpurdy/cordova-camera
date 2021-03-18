@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 
 @Component({
   selector: 'app-home',
@@ -12,7 +13,9 @@ export class HomePage {
   public log: string = "";
   public photo: Photo = new Photo();
 
-  constructor(private camera: Camera) {}
+  constructor(
+    private camera: Camera,
+    private androidPermissions: AndroidPermissions) {}
 
   public async takePhoto(): Promise<void> {
     const options: CameraOptions = {
@@ -23,6 +26,18 @@ export class HomePage {
     }
 
     this.log += `${new Date().toISOString()} Attempt taking picture<br/>`;
+
+    this.photo.exists = false;
+
+    this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.ACCESS_MEDIA_LOCATION).then(
+      result => {
+        this.log += `Media location permission: ${result.hasPermission}<br/>`;
+      },
+      err => {
+        this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.ACCESS_MEDIA_LOCATION)
+        this.log += `Requested media location permission: ${err}<br/>`;
+      }
+    );
 
     this.camera.getPicture(options).then((imageData) => {
       // imageData is either a base64 encoded string or a file URI
